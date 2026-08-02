@@ -1,0 +1,54 @@
+name: Build Game for KaiOS (asm.js)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04 # Changed from 20.04 as it is likely deprecated and causing the queue
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v12
+        with:
+          # Use an older version (e.g., 1.39.0) known to produce good asm.js and .mem files
+          version: '1.39.0'
+          actions-cache-folder: 'emsdk-cache'
+          
+      - name: Checkout raylib
+        uses: actions/checkout@v4
+        with:
+          repository: raysan5/raylib
+          ref: 4.5.0 # Use an older stable raylib that works well with this emscripten version
+          path: raylib
+          
+      - name: Build raylib for Web
+        run: |
+          cd raylib/src
+          make PLATFORM=PLATFORM_WEB -B
+          
+      - name: Compile C Game to asm.js
+        run: |
+          mkdir -p public
+          # Compile using Emscripten. We target asm.js (WASM=0) and optimize for size (-Os)
+          emcc CyberTilt3D.c -o public/game.js \
+            -Os -Wall \
+            -I./raylib/src/ -L./raylib/src/ -lraylib \
+            -s USE_GLFW=3 \
+            -s WASM=0 \
+            -s LEGACY_VM_SUPPORT=1 \
+            -s MIN_FIREFOX_VERSION=48 \
+            -s "EXPORTED_FUNCTIONS=['_main']" \
+            -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall']" \
+            --memory-init-file 1 # Ensures the .mem file is generated
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kaios-game-build
+          path: public/
