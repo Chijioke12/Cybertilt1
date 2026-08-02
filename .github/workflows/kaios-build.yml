@@ -43,7 +43,7 @@ jobs:
             -s LEGACY_VM_SUPPORT=1 \
             -s "EXPORTED_FUNCTIONS=['_main']" \
             -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall']" \
-            --memory-init-file 1 # Ensures the .mem file is generated
+            --memory-init-file 0 # Embeds memory initialization to prevent offset-out-of-bounds errors on Gecko 48
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

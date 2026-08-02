@@ -1,6 +1,6 @@
 {
-  "name": "Preact App",
-  "description": "A clean application migrated to Preact without Tailwind CSS.",
+  "name": "CyberTilt 3D",
+  "description": "3D Balance Labyrinth (C + raylib) compiled to asm.js for Web & KaiOS devices.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
