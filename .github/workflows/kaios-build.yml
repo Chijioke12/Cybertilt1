@@ -18,7 +18,7 @@ jobs:
         with:
           # Use an older version (e.g., 1.39.0) known to produce good asm.js and .mem files
           version: '1.39.0'
-          actions-cache-folder: 'emsdk-cache'
+          actions-cache-folder: 'emsdk-cache-v2'
           
       - name: Checkout raylib
         uses: actions/checkout@v4
