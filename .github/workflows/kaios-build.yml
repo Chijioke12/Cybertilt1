@@ -41,7 +41,6 @@ jobs:
             -s USE_GLFW=3 \
             -s WASM=0 \
             -s LEGACY_VM_SUPPORT=1 \
-            -s MIN_FIREFOX_VERSION=48 \
             -s "EXPORTED_FUNCTIONS=['_main']" \
             -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall']" \
             --memory-init-file 1 # Ensures the .mem file is generated
