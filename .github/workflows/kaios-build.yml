@@ -40,6 +40,8 @@ jobs:
             -I./raylib/src/ -L./raylib/src/ -lraylib \
             -s USE_GLFW=3 \
             -s WASM=0 \
+            -s ALLOW_MEMORY_GROWTH=1 \
+            -s TOTAL_MEMORY=33554432 \
             -s LEGACY_VM_SUPPORT=1 \
             -s "EXPORTED_FUNCTIONS=['_main']" \
             -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall']" \

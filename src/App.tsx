@@ -17,6 +17,8 @@ export default function App() {
     // Define the global Module object required by Emscripten output
     (window as any).Module = {
       canvas: canvas,
+      TOTAL_MEMORY: 33554432,
+      ALLOW_MEMORY_GROWTH: 1,
       print: (text: string) => {
         console.log("[Raylib stdout]", text);
         setLogs(prev => [...prev.slice(-39), `[STDOUT] ${text}`]);
