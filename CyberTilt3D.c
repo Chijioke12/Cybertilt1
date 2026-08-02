@@ -55,6 +55,10 @@ static Model tileModel;
 static Model wallModel;
 static Vector3 stars[80];
 
+#ifndef RAYGUI_H
+bool GuiButton(Rectangle bounds, const char* text);
+#endif
+
 void LoadHighscore(){ FILE*f=fopen("highscore.dat","r"); if(f){ fscanf(f,"%d",&G.highscore); fclose(f);} }
 void SaveHighscore(){ if(G.score>G.highscore){ G.highscore=G.score; FILE*f=fopen("highscore.dat","w"); if(f){fprintf(f,"%d",G.highscore); fclose(f);} } }
 
